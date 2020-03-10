@@ -7,6 +7,8 @@ from more_properties import property
 
 
 class TestProperty(TestCase):
+    property = property
+
     def check_class(
         self,
         cls,
@@ -54,7 +56,7 @@ class TestProperty(TestCase):
         class Index:
             i: Optional[int] = None
 
-            @property
+            @self.property
             def i1(self):
                 """1 based index"""
                 return self.i + 1 if self.i is not None else None
@@ -89,7 +91,7 @@ class TestProperty(TestCase):
             def del_i1(self):
                 self.i = None
 
-            i1 = property(get_i1, set_i1, del_i1, "1 based index")
+            i1 = self.property(get_i1, set_i1, del_i1, "1 based index")
 
         self.check_class(
             Index,
@@ -123,7 +125,7 @@ class TestProperty(TestCase):
                     def del_i1(self):
                         self.i = None
 
-                    i1 = property(
+                    i1 = self.property(
                         fget=get_i1 if has_getter else None,
                         fset=set_i1 if has_setter else None,
                         fdel=del_i1 if has_deleter else None,
@@ -143,6 +145,6 @@ class TestProperty(TestCase):
                 """Incorrect docstring"""
                 return self.i + 1 if self.i is not None else None
 
-            i1 = property(get_i1, doc="1 based index")
+            i1 = self.property(get_i1, doc="1 based index")
 
         self.check_class(Index, has_getter=True, has_docstring=True)

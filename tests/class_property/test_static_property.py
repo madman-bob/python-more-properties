@@ -5,6 +5,8 @@ from more_properties import static_property
 
 
 class TestStaticProperty(TestCase):
+    static_property = static_property
+
     def check_class(
         self,
         cls,
@@ -50,7 +52,7 @@ class TestStaticProperty(TestCase):
         class Foo:
             var_cache = "Initial value"
 
-            @static_property
+            @self.static_property
             def var():
                 """Object identifier"""
                 return Foo.var_cache
@@ -99,7 +101,7 @@ class TestStaticProperty(TestCase):
             def del_var():
                 Foo.var_cache = None
 
-            var = static_property(get_var, set_var, del_var, "Object identifier")
+            var = self.static_property(get_var, set_var, del_var, "Object identifier")
 
         self.check_class(
             Foo, has_getter=True, has_setter=True, has_deleter=True, has_docstring=True,
@@ -131,7 +133,7 @@ class TestStaticProperty(TestCase):
                     def del_var():
                         Foo.var_cache = None
 
-                    var = static_property(
+                    var = self.static_property(
                         fget=get_var if has_getter else None,
                         fset=set_var if has_setter else None,
                         fdel=del_var if has_deleter else None,
@@ -151,6 +153,6 @@ class TestStaticProperty(TestCase):
                 """Incorrect docstring"""
                 return Foo.var_cache
 
-            var = static_property(get_var, doc="Object identifier")
+            var = self.static_property(get_var, doc="Object identifier")
 
         self.check_class(Foo, has_getter=True, has_docstring=True)

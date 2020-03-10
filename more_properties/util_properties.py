@@ -5,11 +5,20 @@ from more_properties.property import Property
 from more_properties.types import Getable
 
 __all__ = [
+    "NamedProperty",
     "WrappedProperty",
 ]
 
 OT = TypeVar("OT", contravariant=True)  # Owner Type
 VT = TypeVar("VT")  # Value Type
+
+
+@dataclass
+class NamedProperty(Property[OT, VT]):
+    name: Optional[str] = None
+
+    def __set_name__(self, owner: Type[OT], name: str) -> None:
+        self.name = name
 
 
 @dataclass

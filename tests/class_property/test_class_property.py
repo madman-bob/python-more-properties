@@ -5,6 +5,8 @@ from more_properties import class_property
 
 
 class TestClassProperty(TestCase):
+    class_property = class_property
+
     def check_class(
         self,
         cls,
@@ -50,7 +52,7 @@ class TestClassProperty(TestCase):
         class Foo:
             name = "Foo"
 
-            @class_property
+            @self.class_property
             def identifier(cls):
                 """Object identifier"""
                 return cls.name.lower()
@@ -100,7 +102,7 @@ class TestClassProperty(TestCase):
             def del_identifier(cls):
                 cls.name = None
 
-            identifier = class_property(
+            identifier = self.class_property(
                 get_identifier, set_identifier, del_identifier, "Object identifier"
             )
 
@@ -134,7 +136,7 @@ class TestClassProperty(TestCase):
                     def del_identifier(cls):
                         cls.name = None
 
-                    identifier = class_property(
+                    identifier = self.class_property(
                         fget=get_identifier if has_getter else None,
                         fset=set_identifier if has_setter else None,
                         fdel=del_identifier if has_deleter else None,
@@ -154,6 +156,6 @@ class TestClassProperty(TestCase):
                 """Incorrect docstring"""
                 return cls.name.lower()
 
-            identifier = class_property(get_identifier, doc="Object identifier")
+            identifier = self.class_property(get_identifier, doc="Object identifier")
 
         self.check_class(Foo, has_getter=True, has_docstring=True)
