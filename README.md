@@ -225,3 +225,11 @@ Doing work
 >>> bar.y
 2
 ```
+
+## Installation
+
+Install and update using the standard Python package manager [pip](https://pip.pypa.io/en/stable/):
+
+```bash
+pip install more_properties
+```
