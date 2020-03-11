@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from dataclasses import dataclass, replace
 from typing import Generic, Optional, Type, TypeVar
 
@@ -52,13 +50,13 @@ class Property(Generic[OT, VT]):
 
         fdel.__get__(instance, type(instance))()
 
-    def getter(self, func: Getter[OT, VT]) -> Property[OT, VT]:
+    def getter(self, func: Getter[OT, VT]) -> "Property[OT, VT]":
         return replace(self, fget=func)
 
-    def setter(self, func: Setter[OT, VT]) -> Property[OT, VT]:
+    def setter(self, func: Setter[OT, VT]) -> "Property[OT, VT]":
         return replace(self, fset=func)
 
-    def deleter(self, func: Deleter[OT]) -> Property[OT, VT]:
+    def deleter(self, func: Deleter[OT]) -> "Property[OT, VT]":
         return replace(self, fdel=func)
 
 

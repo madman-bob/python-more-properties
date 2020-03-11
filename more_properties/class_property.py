@@ -29,5 +29,10 @@ class StaticProperty(ClassProperty[OT, VT]):
     wrapper = staticmethod
 
 
+# For some reason, Python 3.6 treats classmethod and staticmethod as abstract methods,
+# disallowing instantiation of ClassProperty and StaticProperty
+setattr(ClassProperty, "__abstractmethods__", frozenset())
+setattr(StaticProperty, "__abstractmethods__", frozenset())
+
 class_property = ClassProperty
 static_property = StaticProperty
