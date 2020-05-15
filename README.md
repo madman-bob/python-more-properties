@@ -226,6 +226,38 @@ Doing work
 2
 ```
 
+If the setters/deleters are defined,
+then the cache is cleared before they are called.
+
+Further, the cache may be explicitly cleared through the `clear_cache` method,
+exposed only during class creation.
+
+```python
+@dataclass
+class Foo:
+    x: int
+
+    @cached_property
+    def y(self):
+        print("Doing work")
+        return self.x + 1
+
+    y_clear_cache = y.clear_cache
+```
+
+```pycon
+>>> bar = Foo(1)
+>>> bar.y
+Doing work
+2
+>>> bar.y
+2
+>>> bar.y_clear_cache()
+>>> bar.y
+Doing work
+2
+```
+
 ## Installation
 
 Install and update using the standard Python package manager [pip](https://pip.pypa.io/en/stable/):
