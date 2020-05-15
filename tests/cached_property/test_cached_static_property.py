@@ -4,7 +4,7 @@ from more_properties import cached_static_property
 from tests.class_property.test_static_property import TestStaticProperty
 
 
-class TestCachedClassProperty(TestStaticProperty):
+class TestCachedStaticProperty(TestStaticProperty):
     static_property = cached_static_property
 
     def test_cached_static_property_basic(self):
