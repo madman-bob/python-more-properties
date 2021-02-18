@@ -17,7 +17,7 @@ __all__ = [
     "cached_static_property",
 ]
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # Providing aliases for consistency with classmethod and staticmethod
 classproperty = class_property
